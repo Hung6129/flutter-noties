@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_noties/view/signin_page.dart';
-import 'package:flutter_application_noties/view/signup_page.dart';
 
 class OpeningPage extends StatelessWidget {
   const OpeningPage({Key? key}) : super(key: key);
@@ -18,23 +16,15 @@ class OpeningPage extends StatelessWidget {
               style: TextStyle(fontSize: 30),
             ),
             TextButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => const SignInPage(),
-                ),
-              ),
+              onPressed: () => Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/signin/", (route) => false),
               child: const Text(
                 "Sign in !!",
               ),
             ),
             TextButton(
-              onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (BuildContext context) => SignUpPage(),
-                ),
-              ),
+              onPressed: () => Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/signup/", (route) => false),
               child: const Text(
                 "Don't have an account? Sign up here!!",
               ),

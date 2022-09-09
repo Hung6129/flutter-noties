@@ -60,7 +60,10 @@ class _SignUpPageState extends State<SignUpPage> {
                           email: email,
                           password: password,
                         );
+
                         print(userCredential);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            "/home/", (route) => false);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'email-already-in-use') {
                           print("User already register");
@@ -75,10 +78,19 @@ class _SignUpPageState extends State<SignUpPage> {
                       "Sign Up !!",
                     ),
                   ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/signin/", (route) => false);
+                    },
+                    child: const Text(
+                      "Already have an account ? Sign in here",
+                    ),
+                  ),
                 ],
               );
             default:
-              return const Center(child: const Text("Loading"));
+              return const Center(child: CircularProgressIndicator());
           }
         },
       ),

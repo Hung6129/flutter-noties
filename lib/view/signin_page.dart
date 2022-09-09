@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_noties/view/home_page.dart';
 
 import '../firebase_options.dart';
 
@@ -62,6 +61,8 @@ class _SignInPageState extends State<SignInPage> {
                           email: email,
                           password: password,
                         );
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            "/home/", (route) => false);
                         print(userCredential);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
@@ -70,21 +71,24 @@ class _SignInPageState extends State<SignInPage> {
                           print("Wrong password");
                         }
                       }
-                       Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => const HomePage(),
-                        ),
-                      );
                     },
                     child: const Text(
                       "Sign Innn !!",
                     ),
                   ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          "/signup/", (route) => false);
+                    },
+                    child: const Text(
+                      "Not have an account yet? Sign up here",
+                    ),
+                  ),
                 ],
               );
             default:
-              return const Center(child: Text("Loading"));
+              return const Center(child: CircularProgressIndicator());
           }
         },
       ),
